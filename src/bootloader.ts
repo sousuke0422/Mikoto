@@ -1,7 +1,9 @@
 import { exit } from 'process'
 import * as os from 'os'
+import chalk from 'chalk';
 import dotenv from 'dotenv'
 
+import { error, title } from './misc/console-helper';
 import config from './config'
 import bot from './bot'
 
@@ -9,17 +11,17 @@ import bot from './bot'
 export default function () {
   dotenv.config()
 
-  console.log('system check...')
-  console.log(`os: ${process.platform}\narch: ${os.arch}`)
+  console.log(chalk.blueBright('system check...'))
+  console.log(`${title('os')}${process.platform}\n${title('arch')}${os.arch}`)
   if (process.env.BOT_TOKEN) {
-    console.log('token mode: env')
+    console.log(`${title('token mode')}${chalk.green('env')}`)
   } else if (config.core.token) {
-    console.log('token mode: config')
+    console.log(`${title('token mode')}${chalk.green('config')}`)
   } else {
-    console.error('E: The token is not configured.')
+    console.error(error('The token is not configured.'))
     exit(1)
   }
-  
-  console.log('start bot...')
+
+  console.log(chalk.blueBright('start bot...'))
   return bot()
 }
