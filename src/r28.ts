@@ -7,6 +7,7 @@ import { Message, Application } from "discord.js";
 import { client } from "./bot";
 
 import config from './config'
+import logger from "./misc/logger";
 
 /**
  * @param msg Communicate the event (Message)
@@ -16,6 +17,10 @@ import config from './config'
  */
 export function cmd(msg: Message, command: string, bot?: boolean, prefix?: boolean) {
 //  const cmdLen: number = command.length
+  function log(msg: string, error?: boolean): void {
+    logger(`[cmd]: ${msg}`, error);
+  }
+
   let func: string
 
   if (prefix == null) prefix = true
@@ -29,11 +34,11 @@ export function cmd(msg: Message, command: string, bot?: boolean, prefix?: boole
 
   if (msg.author.bot && !bot) {
     if (msg.content.startsWith(func) && prefix || msg.content === func) {
-      console.log(msg.author.username + ` is bot. (command: "${msg.content}")`)
+      log(msg.author.username + ` is bot. (command: "${msg.content}")`)
     }
     return false
   } else if (msg.content.startsWith(func) && prefix || msg.content === func) {
-    console.log(msg.author.username + `: "${msg.content}"`)
+    log(msg.author.username + `: "${msg.content}"`)
     return true
   }
 }
