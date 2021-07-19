@@ -2,5 +2,16 @@
   "name": "mikoto",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.2",
+    "@types/node": "16.3.3",
+    "ts-node": "10.1.0",
+    "typescript": "4.3.5"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
+    "js-yaml": "^4.1.0"
+  }
 }
