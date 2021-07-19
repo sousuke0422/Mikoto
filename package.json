@@ -2,7 +2,7 @@
   "name": "mikoto",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "scripts": {
     "build": "tsc",
     "start": "node ./index.js"
