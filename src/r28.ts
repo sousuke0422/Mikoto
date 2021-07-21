@@ -3,6 +3,7 @@
  * 
  * rei0784 -> r + 0784/28 -> r28
  */
+import { ENOTSUP } from "constants";
 import { Message, Application } from "discord.js";
 import { client } from "./bot";
 
@@ -20,8 +21,6 @@ function cmdLog(msg: string, error?: boolean): void {
  * @param prefix Use prefix yes/no (boolean)
  */
 export function cmd(msg: Message, command: string, bot?: boolean, prefix?: boolean) {
-//  const cmdLen: number = command.length
-
   let func: string
 
   if (prefix == null) prefix = true
@@ -42,4 +41,12 @@ export function cmd(msg: Message, command: string, bot?: boolean, prefix?: boole
     cmdLog(msg.author.username + `: "${msg.content}"`)
     return true
   }
+}
+
+export function apiGet() {
+  return ENOTSUP
+}
+
+export function apiPost() {
+  return ENOTSUP
 }
