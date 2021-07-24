@@ -8,10 +8,15 @@ import { Message, Application } from "discord.js";
 import { client } from "./bot";
 
 import config from './config'
+import { error } from "./misc/console-helper";
 import logger from "./misc/logger";
 
 function cmdLog(msg: string, error?: boolean): void {
   logger(`[cmd]: ${msg}`, error);
+}
+
+function apiLog(msg: string, error?: boolean): void {
+  logger(`[api]: ${msg}`, error);
 }
 
 /**
@@ -43,10 +48,27 @@ export function cmd(msg: Message, command: string, bot?: boolean, prefix?: boole
   }
 }
 
-export function apiGet() {
-  return ENOTSUP
+export function apiGet(url: string) {
+  const promise = new Promise<void>((resolve, reject) => {
+    fetch(url, {
+      method: 'GET',
+      credentials: 'omit'
+    }).then(async (res) => {
+      const body = await res.json().catch(() => null)
+
+      if (res.status === 200) {
+        resolve(body)
+        apiLog(`success GET "${url}"`)
+      } else if (res.status === 204) {
+        resolve()
+      } else {
+        reject(body ? body.error : `${res.status} ${res.statusText}`)
+        apiLog(error(`failed GET (${res.status}) ${url}`), true)
+      }
+    })
+  })
 }
 
-export function apiPost() {
+export function apiPost(url: string, data: Record<string, object> = {}) {
   return ENOTSUP
 }
