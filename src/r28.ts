@@ -9,15 +9,9 @@ import { client } from "./bot";
 
 import config from './config'
 import { error } from "./misc/console-helper";
-import logger from "./misc/logger";
+import { apiLog, cmdLog } from "./misc/logger";
 
-function cmdLog(msg: string, error?: boolean): void {
-  logger(`[cmd]: ${msg}`, error);
-}
 
-function apiLog(msg: string, error?: boolean): void {
-  logger(`[api]: ${msg}`, error);
-}
 
 /**
  * @param msg Communicate the event (Message)
