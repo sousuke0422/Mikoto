@@ -7,7 +7,8 @@ import { error, title } from './misc/console-helper';
 import config from './config'
 import bot from './bot'
 
-//  const token = process.env.BOT_TOKEN || config.core.token || undefined
+export const token = process.env.BOT_TOKEN || config.core.token || undefined
+
 export default function () {
   dotenv.config()
 
