@@ -4,6 +4,7 @@ import { Config } from "./types";
 
 const path = ".config/config.yml"
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function load() {
   const config = yaml.load(fs.readFileSync(path, "utf8")) as Config;
 

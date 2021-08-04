@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * r28api
  * 
  * rei0784 -> r + 0784/28 -> r28
  */
 import { ENOTSUP } from "constants";
-import { Message, Application } from "discord.js";
-import { client } from "./bot";
+import { Message } from "discord.js";
 
 import config from './config'
 import { error } from "./misc/console-helper";
@@ -63,6 +63,7 @@ export function apiGet(url: string) {
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function apiPost(url: string, data: Record<string, object> = {}) {
   return ENOTSUP
 }

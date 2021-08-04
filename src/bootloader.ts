@@ -9,7 +9,8 @@ import bot from './bot'
 
 export const token = process.env.BOT_TOKEN || config.core.token || undefined
 
-export default function () {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function() {
   dotenv.config()
 
   console.log(chalk.blueBright('system check...'))

@@ -1,9 +1,9 @@
 // https://github.com/syuilo/ai/blob/09fc4291f05eaeb65049a4eea24b7d1e79f7c3ff/src/utils/log.ts
 
 import chalk from 'chalk';
-import { channel } from 'diagnostics_channel';
 import { Message } from 'discord.js';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function logger(msg: string, error?: boolean) {
 	const now = new Date();
 	const date = `${zeroPad(now.getHours())}:${zeroPad(now.getMinutes())}:${zeroPad(now.getSeconds())}`;
@@ -14,7 +14,7 @@ export default function logger(msg: string, error?: boolean) {
   }
 }
 
-function zeroPad(num: number, length: number = 2): string {
+function zeroPad(num: number, length = 2): string {
 	return ('0000000000' + num).slice(-length);
 }
 

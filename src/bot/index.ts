@@ -56,6 +56,7 @@ client.on('message', message => {
     msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function() {
   client.login(token)
 }

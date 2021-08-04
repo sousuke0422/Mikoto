@@ -6,7 +6,8 @@ Error.stackTraceLimit = Infinity;
 
 import bootloader from './bootloader'
 
-export default function () {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function() {
   console.log('booting...\r')
   return bootloader()
 }
