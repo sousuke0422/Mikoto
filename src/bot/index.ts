@@ -51,7 +51,7 @@ client.on('message', message => {
 
   if (!(message.mentions.members) || message.mentions.members.each(function (member) {
     const user = client.users.cache.get(member.id)
-    content = content.replace(`<@${member.id}>`, `@${user.tag}`).replace(`<@${member.id}>`, `@${user.tag}`)
+    content = content.replace(`<@${member.id}>`, `@${user?.tag}`).replace(`<@${member.id}>`, `@${user?.tag}`)
   }))
     msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
