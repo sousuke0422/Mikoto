@@ -9,6 +9,7 @@ import { cmd } from '../r28'
 import { title } from '../misc/console-helper';
 import { token } from '../bootloader';
 import { msgLog } from '../misc/logger';
+import { CoreSend } from './command/core';
 
 const splash = readFileSync('./assets/splash.txt')
 
@@ -32,19 +33,12 @@ class Reply implements IReply {
 }
 
 const reply = new Reply();
+const cSend = new CoreSend();
+
 client.on("message", (message) => reply.messageReply(message));
 
-client.on('message', message => {
-  if(cmd(message, 'ping', false)) {
-    message.channel.send(new Date().getTime() - message.createdTimestamp + " ms\n" + `API Latency is ${Math.round(client.ws.ping)}ms`);        
-  }
-});
-
-client.on('message', message => {
-  if(cmd(message, 'status', false)) {
-    message.channel.send(`uptime: ${prettyMilliseconds(client.uptime || 0)}`);        
-  }
-});
+client.on('message', (message) => cSend.ping(message));
+client.on('message', (message) => cSend.status(message));
 
 client.on('message', message => {
   if(cmd(message, 't1', false)) {
