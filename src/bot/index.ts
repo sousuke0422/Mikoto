@@ -1,6 +1,5 @@
 import { Client, Message } from 'discord.js'
 import { readFileSync } from 'fs';
-import prettyMilliseconds from 'pretty-ms'
 import chalk from 'chalk';
 import dotenv from 'dotenv'
 
@@ -34,6 +33,7 @@ class Reply implements IReply {
 
 const reply = new Reply();
 const cSend = new CoreSend();
+//const uSend = new UtilSend();
 
 client.on("message", (message) => reply.messageReply(message));
 
@@ -48,16 +48,12 @@ client.on('message', message => {
 
 client.on('message', message => {
   let content = message.content || "embed or file?"
-  
-  /* todo
-  if (message.mentions.members?.first()) {
-    //ゴミを退かす
-    content = content.replace(/[\\<>@!]/g, '')
-    //置き換え
-    content = content.replace(//g, '')
-  }
-  */
-  msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
+
+  if (!(message.mentions.members) || message.mentions.members.each(function (member) {
+    const user = client.users.cache.get(member.id)
+    content = content.replace(`<@${member.id}>`, `@${user.tag}`).replace(`<@${member.id}>`, `@${user.tag}`)
+  }))
+    msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
 
 export default function() {
