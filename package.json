@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MPL-2.0",
   "scripts": {
+    "bs": "npm run build && npm run start",
     "build": "tsc",
     "start": "node ./index.js"
   },
