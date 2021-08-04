@@ -1,6 +1,5 @@
 import { Client, Message } from 'discord.js'
 import { readFileSync } from 'fs';
-import prettyMilliseconds from 'pretty-ms'
 import chalk from 'chalk';
 import dotenv from 'dotenv'
 
@@ -49,19 +48,12 @@ client.on('message', message => {
 
 client.on('message', message => {
   let content = message.content || "embed or file?"
-  
-  const regexp = /<@!(.*?)>|<@(.*?)>/g
-  // idを取り出す
-  let mentions = content.match(regexp)
-  let ids = mentions?.map(id => id.replace(/<@!(.*?)>/g, '$1').replace(/<@(.*?)>/g, '$1'))
-  // 人間が見やすいように
-  const users = ids?.map(id => client.users.cache.get(id)?.tag)
-  // 置き換え
-  users?.map(user =>
-    content = content.replace(/<@!(.*?)>/g, `@${user}`).replace(/<@(.*?)>/g, `@${user}`)
-  )
-  
-  msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
+
+  if (!(message.mentions.members) || message.mentions.members.each(function (member) {
+    const user = client.users.cache.get(member.id)
+    content = content.replace(`<@${member.id}>`, `@${user.tag}`).replace(`<@${member.id}>`, `@${user.tag}`)
+  }))
+    msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
 
 export default function() {
