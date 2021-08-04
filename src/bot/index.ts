@@ -34,6 +34,7 @@ class Reply implements IReply {
 
 const reply = new Reply();
 const cSend = new CoreSend();
+//const uSend = new UtilSend();
 
 client.on("message", (message) => reply.messageReply(message));
 
@@ -49,14 +50,17 @@ client.on('message', message => {
 client.on('message', message => {
   let content = message.content || "embed or file?"
   
-  /* todo
-  if (message.mentions.members?.first()) {
-    //ゴミを退かす
-    content = content.replace(/[\\<>@!]/g, '')
-    //置き換え
-    content = content.replace(//g, '')
-  }
-  */
+  const regexp = /<@!(.*?)>|<@(.*?)>/g
+  // idを取り出す
+  let mentions = content.match(regexp)
+  let ids = mentions?.map(id => id.replace(/<@!(.*?)>/g, '$1').replace(/<@(.*?)>/g, '$1'))
+  // 人間が見やすいように
+  const users = ids?.map(id => client.users.cache.get(id)?.tag)
+  // 置き換え
+  users?.map(user =>
+    content = content.replace(/<@!(.*?)>/g, `@${user}`).replace(/<@(.*?)>/g, `@${user}`)
+  )
+  
   msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
 
