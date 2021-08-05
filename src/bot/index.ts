@@ -7,7 +7,7 @@ import { IReply } from "./interface";
 import { cmd } from '../r28'
 import { title } from '../misc/console-helper';
 import { token } from '../bootloader';
-import { msgLog } from '../misc/logger';
+import { logSream, msgLog, sysLog } from '../misc/logger';
 import { CoreSend } from './command/core';
 
 const splash = readFileSync('./assets/splash.txt')
@@ -21,6 +21,7 @@ client.on('ready', () => {
   console.log(`\x1b[38;2;115;139;201m${splash}\x1b[0m`)
   console.log(`${title('user')}${client.user?.tag}`)
   console.debug(`${title('id')}${client.user?.id}`)
+  sysLog("Hello World!!")
 })
 
 class Reply implements IReply {
@@ -39,6 +40,7 @@ client.on("message", (message) => reply.messageReply(message));
 
 client.on('message', (message) => cSend.ping(message));
 client.on('message', (message) => cSend.status(message));
+client.on('message', (message) => cSend.shutdown(message));
 
 client.on('message', message => {
   if(cmd(message, 't1', false)) {
@@ -47,16 +49,36 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  let content = message.content || "embed or file?"
+  let content
+  let text = message.content
 
   if (!(message.mentions.members) || message.mentions.members.each(function (member) {
     const user = client.users.cache.get(member.id)
-    content = content.replace(`<@${member.id}>`, `@${user?.tag}`).replace(`<@${member.id}>`, `@${user?.tag}`)
+    text = text.replace(`<@${member.id}>`, `@${user?.tag}`).replace(`<@${member.id}>`, `@${user?.tag}`)
   }))
-    msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
+
+  content = text || message || "file?"
+
+  msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
+
+// todo
+//client.on('destroy', () => {
+//  sysLog('Reconnecting...')
+//  client.login(token)
+//})
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function() {
   client.login(token)
 }
+
+process.on("exit", function() {
+  sysLog('Shutting down...')
+  logSream.end()
+  console.log("Close World")
+})
+
+process.on('SIGINT', function() {
+  process.exit(0);
+});

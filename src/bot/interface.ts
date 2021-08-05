@@ -7,4 +7,5 @@ export interface IReply {
 export interface ICoreSend {
   ping(message: Message): Promise<void>;
   status(message: Message): Promise<void>;
+  shutdown(message: Message): Promise<void>;
 }
