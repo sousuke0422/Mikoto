@@ -49,7 +49,7 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-  let content
+  let etc
   let text = message.content
 
   if (!(message.mentions.members) || message.mentions.members.each(function (member) {
@@ -57,7 +57,9 @@ client.on('message', message => {
     text = text.replace(`<@${member.id}>`, `@${user?.tag}`).replace(`<@${member.id}>`, `@${user?.tag}`)
   }))
 
-  content = text || message || "file?"
+  etc = `\n${title('embed')}${JSON.stringify(message.embeds, null, 2)}\n${title('file(s)')}${JSON.stringify(message.attachments, null, 2)}`
+
+  const content = text || etc
 
   msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });
