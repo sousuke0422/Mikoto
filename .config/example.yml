@@ -1,3 +1,4 @@
 core:
   token: ""
   prefix: "|"
+  ownerId: "000000000000000000"
