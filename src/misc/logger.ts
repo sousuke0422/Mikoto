@@ -20,7 +20,7 @@ const setFileName = (timestamp: number) => {
 export const logSream = createWriteStream(`logs/${setFileName(Date.now())}.log`);
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function logger(msg: string, error?: boolean) {
+function logger(msg: string, error?: boolean) {
 	const now = new Date();
 	const date = `${zeroPad(now.getHours())}:${zeroPad(now.getMinutes())}:${zeroPad(now.getSeconds())}`;
 	if (!error) {
