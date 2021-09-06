@@ -4,12 +4,13 @@
  * 
  * rei0784 -> r + 0784/28 -> r28
  */
-import { ENOTSUP } from "constants";
 import { Message } from "discord.js";
+import fetch from 'node-fetch';
 
 import config from './config'
 import { error } from "./misc/console-helper";
 import { apiLog, cmdLog } from "./misc/logger";
+import { mikotoEdgeCanaryUA } from "./misc/user-agent";
 
 
 
@@ -45,8 +46,7 @@ export function cmd(msg: Message, command: string, bot?: boolean, prefix?: boole
 export function apiGet(url: string) {
   const promise = new Promise<void>((resolve, reject) => {
     fetch(url, {
-      method: 'GET',
-      credentials: 'omit'
+      method: 'GET'
     }).then(async (res) => {
       const body = await res.json().catch(() => null)
 
@@ -59,11 +59,34 @@ export function apiGet(url: string) {
         reject(body ? body.error : `${res.status} ${res.statusText}`)
         apiLog(error(`failed GET (${res.status}) ${url}`), true)
       }
-    })
+    }).catch(reject)
   })
+  return promise
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function apiPost(url: string, data: Record<string, object> = {}) {
-  return ENOTSUP
+export function apiPost(url: string, data: { [x: string]: any } = {} ) {
+  const promise = new Promise<void>((resolve, reject) => {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'User-Agent': mikotoEdgeCanaryUA,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(async (res) => {
+      const body = await res.json().catch(() => null)
+
+      if (res.status === 200) {
+        apiLog(`success POST "${url}"`)
+        resolve(body)
+      } else if (res.status === 204) {
+        resolve()
+      } else {
+        apiLog(error(`failed POST (${res.status}) ${url}`), true)
+        reject(body ? body.error : `${res.status} ${res.statusText}`)
+      }
+    }).catch(reject)
+  })
+  return promise
 }
