@@ -7,10 +7,10 @@
 import { Message } from "discord.js";
 import fetch from 'node-fetch';
 
-import config from './config'
-import { error } from "./misc/console-helper";
-import { apiLog, cmdLog } from "./misc/logger";
-import { mikotoEdgeCanaryUA } from "./misc/user-agent";
+import config from './config/index.js'
+import { error } from "./misc/console-helper.js";
+import { apiLog, cmdLog } from "./misc/logger.js";
+import { mikotoEdgeCanaryUA } from "./misc/user-agent.js";
 
 
 

@@ -5,7 +5,7 @@
 
 Error.stackTraceLimit = Infinity;
 
-import bootloader from './bootloader'
+import bootloader from './bootloader.js'
 
 /**
  * start bootloader

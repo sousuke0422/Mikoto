@@ -3,12 +3,12 @@ import { readFileSync } from 'fs';
 import chalk from 'chalk';
 import dotenv from 'dotenv'
 
-import { IReply } from "./interface";
-import { cmd } from '../r28'
-import { title } from '../misc/console-helper';
-import { token } from '../bootloader';
-import { logSream, msgLog, sysLog } from '../misc/logger';
-import { CoreSend } from './command/core';
+import { IReply } from "./interface.js";
+import { cmd } from '../r28.js'
+import { title } from '../misc/console-helper.js';
+import { token } from '../bootloader.js';
+import { logSream, msgLog, sysLog } from '../misc/logger.js';
+import { CoreSend } from './command/core/index.js';
 
 const splash = readFileSync('./assets/splash.txt')
 

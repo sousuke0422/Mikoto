@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
-const fs = require('fs');
+import { mkdirSync, existsSync } from 'fs';
+import entry from './build/index.js'
 
-fs.mkdirSync('logs', { recursive: true });
+mkdirSync('logs', { recursive: true });
 
-if (fs.existsSync('./build')) {
-	require('./build').default();
+if (existsSync('./build')) {
+	entry();
 } else {
 	console.log('no such directory');
 }

@@ -1,11 +1,11 @@
 import { Message } from "discord.js";
 import prettyMilliseconds from 'pretty-ms'
 
-import { client } from "../..";
-import config from "../../../config";
-import { cmd } from "../../../r28";
-import { permden } from "../../helper";
-import { ICoreSend } from "../../interface";
+import { client } from "../../index.js";
+import config from "../../../config/index.js";
+import { cmd } from "../../../r28.js";
+import { permden } from "../../helper/index.js";
+import { ICoreSend } from "../../interface.js";
 
 const ownerId = config.core.ownerId || "000000000000000000"
 

@@ -4,9 +4,9 @@ import * as os from 'os'
 import chalk from 'chalk';
 import dotenv from 'dotenv'
 
-import { error, title } from './misc/console-helper';
-import config from './config'
-import bot from './bot'
+import { error, title } from './misc/console-helper.js';
+import config from './config/index.js'
+import bot from './bot/index.js'
 
 /**
  * discord token
