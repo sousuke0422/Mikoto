@@ -4,6 +4,7 @@ import prettyMilliseconds from 'pretty-ms'
 import { client } from "../..";
 import config from "../../../config";
 import { cmd } from "../../../r28";
+import { permden } from "../../helper";
 import { ICoreSend } from "../../interface";
 
 const ownerId = config.core.ownerId || "000000000000000000"
@@ -28,7 +29,7 @@ export class CoreSend implements ICoreSend {
         await message.channel.send('ok');
         process.exit(0)
       } else {
-        message.channel.send('shutdown: Permission denied');
+        message.channel.send(permden('shutdown'));
       }
     }
   }
