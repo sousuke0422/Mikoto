@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { exit } from 'process'
 import * as os from 'os'
 import chalk from 'chalk';
@@ -7,9 +8,14 @@ import { error, title } from './misc/console-helper';
 import config from './config'
 import bot from './bot'
 
+/**
+ * discord token
+ */
 export const token = process.env.BOT_TOKEN || config.core.token || undefined
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+/**
+ * start bot
+ */
 export default function() {
   dotenv.config()
 

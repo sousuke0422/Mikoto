@@ -16,6 +16,9 @@ const options: ClientOptions = {
   intents: Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0),
 };
 
+/**
+ * make client
+ */
 export const client = new Client(options)
 // 何故か無いとだめ
 dotenv.config()
@@ -53,7 +56,7 @@ client.on('messageCreate', message => {
 });
 
 client.on('messageCreate', message => {
-  let content
+  let etc
   let text = message.content
 
   if (!(message.mentions.members) || message.mentions.members.each(function (member) {
@@ -61,7 +64,9 @@ client.on('messageCreate', message => {
     text = text.replace(`<@${member.id}>`, `@${user?.tag}`).replace(`<@${member.id}>`, `@${user?.tag}`)
   }))
 
-  content = text || message || "file?"
+  etc = `\n${title('embed')}${JSON.stringify(message.embeds, null, 2)}\n${title('file(s)')}${JSON.stringify(message.attachments, null, 2)}`
+
+  const content = text || etc
 
   msgLog(`${title('user')}${message.author.tag} ${title('bot')}${message.author.bot} ${title('content')}${content}`, message)
 });

@@ -22,6 +22,10 @@ export class CoreSend implements ICoreSend {
     }
   }
 
+  /**
+   * shutdown command
+   * @param message Message
+   */
   public async shutdown(message: Message): Promise<void> {
     if(cmd(message, 'shutdown', false)) {
       //message.channel.send('waite...');
