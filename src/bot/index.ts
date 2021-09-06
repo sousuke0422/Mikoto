@@ -1,4 +1,4 @@
-import { Client, Message } from 'discord.js'
+import { Client, ClientOptions, Intents, Message } from 'discord.js'
 import { readFileSync } from 'fs';
 import chalk from 'chalk';
 import dotenv from 'dotenv'
@@ -12,10 +12,14 @@ import { CoreSend } from './command/core';
 
 const splash = readFileSync('./assets/splash.txt')
 
+const options: ClientOptions = {
+  intents: Object.values(Intents.FLAGS).reduce((acc, p) => acc | p, 0),
+};
+
 /**
  * make client
  */
-export const client = new Client()
+export const client = new Client(options)
 // 何故か無いとだめ
 dotenv.config()
 
