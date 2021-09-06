@@ -42,17 +42,17 @@ const cSend = new CoreSend();
 
 client.on("message", (message) => reply.messageReply(message));
 
-client.on('message', (message) => cSend.ping(message));
-client.on('message', (message) => cSend.status(message));
-client.on('message', (message) => cSend.shutdown(message));
+client.on('messageCreate', (message) => cSend.ping(message));
+client.on('messageCreate', (message) => cSend.status(message));
+client.on('messageCreate', (message) => cSend.shutdown(message));
 
-client.on('message', message => {
+client.on('messageCreate', message => {
   if(cmd(message, 't1', false)) {
     message.channel.send(`<@${message.author.id}> <@499157410380906517>`);        
   }
 });
 
-client.on('message', message => {
+client.on('messageCreate', message => {
   let content
   let text = message.content
 
