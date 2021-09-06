@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * Mikoto Entry Point (MEP)
  */
@@ -6,7 +7,9 @@ Error.stackTraceLimit = Infinity;
 
 import bootloader from './bootloader'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+/**
+ * start bootloader
+ */
 export default function() {
   console.log('booting...\r')
   return bootloader()

@@ -12,6 +12,9 @@ import { CoreSend } from './command/core';
 
 const splash = readFileSync('./assets/splash.txt')
 
+/**
+ * make client
+ */
 export const client = new Client()
 // 何故か無いとだめ
 dotenv.config()

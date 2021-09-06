@@ -17,6 +17,9 @@ const setFileName = (timestamp: number) => {
   return `${yyyy}-${MM}-${dd}-${HH}${mm}`;
 }
 
+/**
+ * start write stream
+ */
 export const logSream = createWriteStream(`logs/${setFileName(Date.now())}.log`);
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -37,6 +40,8 @@ function logger(msg: string, error?: boolean) {
 function zeroPad(num: number, length = 2): string {
 	return ('0000000000' + num).slice(-length);
 }
+
+// logger
 
 export function sysLog(msg: string, error?: boolean): void {
   logger(`[system]: ${msg}`, error);
